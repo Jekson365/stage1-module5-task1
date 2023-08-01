@@ -1,5 +1,6 @@
 package com.epam.mjc;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -11,11 +12,19 @@ import java.util.function.Supplier;
 public class InterfaceCreator {
 
     public Predicate<List<String>> isValuesStartWithUpperCase() {
-        throw new UnsupportedOperationException("You should implement this method.");
+        return list -> list.stream().allMatch(value -> value.matches("[A-Z].*"));
     }
 
     public Consumer<List<Integer>> addEvenValuesAtTheEnd() {
-        throw new UnsupportedOperationException("You should implement this method.");
+        return list -> {
+            List<Integer> ev = new ArrayList<>();
+            for (int val : list) {
+                if (val % 2 == 0) {
+                    ev.add(val);
+                }
+            }
+            list.addAll(ev);
+        };
     }
 
     public Supplier<List<String>> filterCollection(List<String> values) {
@@ -27,6 +36,11 @@ public class InterfaceCreator {
     }
 
     public BiFunction<List<Integer>, List<Integer>, List<Integer>> concatList() {
-        throw new UnsupportedOperationException("You should implement this method.");
+        return (list1, list2) -> {
+            List<Integer> result = new ArrayList<>();
+            result.addAll(list1);
+            result.addAll(list2);
+            return result;
+        };
     }
 }
